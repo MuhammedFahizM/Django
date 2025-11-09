@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h2>Expensive Products(Greater than $100):-</h2>
+    
+    <ul>
+        {% for i in products %}
+        <li>{{i.name}} - {{i.amount}}</li>
+        {% empty %}
+        <li>No products found.</li>
+        {% endfor %}
+    </ul>
+    
+</body>
+</html>
+

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   <table border="1">
+    <tr>
+        <td>Sl_no.</td>
+        <td>product name</td>
+        <td>price</td>
+        <td>quantity</td>
+        <td>description</td>
+        <td>date</td>
+        <td>image</td>
+        <td>action</td>
+    </tr>
+    <tr>
+        {% for i in res %}
+        <td>{{forloop.counter}}</td>
+        <td>{{i.productname}}</td>
+        <td>{{i.price}}</td>
+        <td>{{i.quantity}}</td>
+        <td>{{i.description}}</td>
+        <td>{{i.date}}</td>
+        <td><img src="{{i.image}}" alt="" width="100px" height="100px"></td>
+        <td><a href="/editproduct/{{i.id}}">edit</a>
+        <a href="/deleteproduct/{{i.id}}">Delete</a></td>
+    </tr>
+    {% endfor %}
+   </table> 
+</body>
+</html>

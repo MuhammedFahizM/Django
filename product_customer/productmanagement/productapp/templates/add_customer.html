@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form action="/addcustomer_post" method="post">
+        {% csrf_token %}
+        <label for="customer_name">Customer name</label>
+        <input type="text" name="customer_name" id="customer_name">
+        <br><br>
+        <label for="email">Email</label>
+        <input type="email" name="email" id="email">
+        <br><br>
+        <label for="contact_no">Contact no.</label>
+        <input type="number" name="contact_no" id="contact_no">
+        <br><br>
+        <input type="submit" value="AddCustomer">
+
+    </form>
+</body>
+</html>

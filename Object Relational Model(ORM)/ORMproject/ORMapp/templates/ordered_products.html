@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Products orderd by their amount</h1>
+        <br>
+    <section>
+        
+        <h2>Ascending Order(Lowest -> Highest)</h2>
+        {% for i in ascending_products %}
+        <div class="card">
+        <h3>{{i.name}}</h3>
+        <p class="price">${{ i.amount}}</p>
+    </div>
+    {% empty %}
+    <p> No products available.</p>
+
+    {% endfor %}
+        
+        <section>
+            <h2>Descending Order(Highest -> Lowest)</h2>
+             {% for i in descending_products %}
+        <div class="card">
+        <h3>{{i.name}}</h3>
+        <p class="price">${{ i.amount}}</p>
+    </div>
+    {% empty %}
+    <p> No products available.</p>
+        {% endfor %}
+
+        </section>
+
+    </section>
+
+</body>
+</html>

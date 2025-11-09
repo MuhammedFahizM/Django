@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- <table border="2">
+        <tr>
+            <th>SL no</th>
+            <th>Name</th>
+            <th>Amount</th>
+        </tr>
+        {% for i in products %}
+        <tr>
+        
+            <td>{{forloop.counter}}</td>
+            <td>{{i.name}}</td>
+            <td>{{i.amount}}</td>
+        </tr>
+
+        {% endfor%}
+    </table> -->
+    {% for i in products %}
+
+    <div class="card">
+        <h2>{{i.name}}</h2>
+        <p class="price">${{ i.amount}}</p>
+    </div>
+
+    {% empty %}
+    <p> No products available. <a href="{% url 'add_product' %}">Add</a></p>
+
+    {% endfor %}
+
+</body>
+</html>
