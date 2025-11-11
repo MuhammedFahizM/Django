@@ -43,3 +43,16 @@ class TaskList(APIView):
     def post(self,request):
         new_task = request.data
         return Response({'message':'Task created!','task':new_task})
+    
+
+            # using Generic views:-
+
+
+from rest_framework.generics import ListCreateAPIView
+from .models import Task
+from .serializers import TaskSerialzer
+
+class TaskListCreateAPIView(ListCreateAPIView):
+    queryset = Task.objects.all()
+    serializer_class = TaskSerialzer
+    
