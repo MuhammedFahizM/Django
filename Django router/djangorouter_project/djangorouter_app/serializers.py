@@ -5,5 +5,3 @@ class TaskSerialzer(serializers.ModelSerializer):
     class Meta:
         model = Task
         fields = ['id', 'task_name', 'completed']
-
-        

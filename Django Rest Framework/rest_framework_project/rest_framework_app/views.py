@@ -55,4 +55,4 @@ from .serializers import TaskSerialzer
 class TaskListCreateAPIView(ListCreateAPIView):
     queryset = Task.objects.all()
     serializer_class = TaskSerialzer
-    
+
