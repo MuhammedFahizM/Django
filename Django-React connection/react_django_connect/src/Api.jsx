@@ -5,8 +5,8 @@ function TaskList() {
 
 
     useEffect(() =>{
-        fetch('')
-        .then((response) => response.json)
+        fetch('http://127.0.0.1:8000/tasks/')
+        .then((response) => response.json())
         .then((data) => setTasks(data));
     },[]);
 
@@ -16,7 +16,7 @@ function TaskList() {
             <ul>
                 {tasks.map((task) =>
                 <li key={task.id}>
-                    {task.name} - {task.completed ? 'Completed' : 'Pending'}
+                    {task.task_name} - {task.completed ? 'Completed' : 'Pending'}
                 </li>
                 )}
             </ul>
