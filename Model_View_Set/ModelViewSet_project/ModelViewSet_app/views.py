@@ -37,22 +37,40 @@ from rest_framework.decorators import action
 
 from rest_framework import status
 
+# class TaskViewSet(ModelViewSet):
+#     queryset = Task.objects.all()
+#     serializer_class = TaskSerialzer
+
+#     def create(self, request, *args, **kwargs):
+        
+#         # make request data mutable
+#         data = request.data.copy()
+
+#         # convert task name to uppercase
+#         if 'task_name' in data:
+#             data['task_name'] = data['task_name'].upper()
+
+#         serializer = self.get_serializer(data=data)
+#         serializer.is_valid(raise_exception = True)
+#         self.perform_create(serializer)
+
+#         return Response(serializer.data,status=status.HTTP_201_CREATED)
+
+   
+
+
+        # Handling Errors:-
+        
+from rest_framework.exceptions import ValidationError
+
+
 class TaskViewSet(ModelViewSet):
+
     queryset = Task.objects.all()
     serializer_class = TaskSerialzer
 
     def create(self, request, *args, **kwargs):
-        
-        # make request data mutable
-        data = request.data.copy()
-
-        # convert task name to uppercase
-        if 'task_name' in data:
-            data['task_name'] = data['task_name'].upper()
-
-        serializer = self.get_serializer(data=data)
-        serializer.is_valid(raise_exception = True)
-        self.perform_create(serializer)
-
-        return Response(serializer.data,status=status.HTTP_201_CREATED)
+        if not request.data.get('task_name'):
+            raise ValidationError("Task name is required.")
+        return super().create(request,*args,**kwargs)
 
