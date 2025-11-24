@@ -16,9 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from celery_app.views import test
-
+# from celery_app.views import test
+from celery_app import views
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('',test,name="test")
+    # path('',test,name="test")
+    path('',views.send_email_to_all,name='send_email'),
 ]
