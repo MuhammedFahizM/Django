@@ -1,0 +1,215 @@
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Chat</title>
+    <style>
+        /* Your custom styles here */
+    </style>
+</head>
+<body>
+    <h2>WebSocket Chat</h2>
+    <div id="chatLog">Connecting...</div>
+    <input id="messageInput" type="text" placeholder="Type your message here..." />
+    <button onclick="sendMessage()">Send</button>
+
+    <script>
+        const chatLog = document.getElementById('chatLog');
+        const socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+
+        socket.onopen = function(e) {
+            chatLog.textContent += ' ✅ WebSocket connection established.\n';
+        };
+
+        socket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            chatLog.textContent += \nServer: ${data.message};
+        };
+
+        socket.onclose = function(e) {
+            chatLog.textContent += '\n❌ WebSocket connection closed.';
+        };
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value;
+            socket.send(JSON.stringify({
+                'message': message
+            }));
+            messageInput.value = '';  // Clear the input field
+        }
+    </script>
+</body>
+</html> -->
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebSocket Chat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f7f7f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .chat-container {
+            width: 400px;
+            max-width: 90%;
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            height: 550px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .chat-header {
+            background: #eaf2ff;
+            color: #333;
+            text-align: center;
+            padding: 12px;
+            font-weight: bold;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .chat-log {
+            flex: 1;
+            padding: 15px;
+            overflow-y: auto;
+            background: #fafafa;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .message {
+            margin: 6px 0;
+            padding: 10px 14px;
+            border-radius: 12px;
+            max-width: 75%;
+            word-wrap: break-word;
+        }
+
+        .message.user {
+            align-self: flex-end;
+            background: #d9eaff;
+        }
+
+        .message.server {
+            align-self: flex-start;
+            background: #f0f0f0;
+        }
+
+        .status {
+            text-align: center;
+            color: gray;
+            font-size: 0.9em;
+            margin: 6px 0;
+        }
+
+        .chat-input {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+            background: white;
+        }
+
+        .chat-input input {
+            flex: 1;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            outline: none;
+            font-size: 1em;
+        }
+
+        .chat-input button {
+            margin-left: 8px;
+            padding: 10px 15px;
+            background: #4a90e2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+        }
+
+        .chat-input button:hover {
+            background: #3b7bcc;
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">WebSocket Chat</div>
+        <div id="chatLog" class="chat-log">
+            <div class="status">Connecting...</div>
+        </div>
+
+        <div class="chat-input">
+            <input id="messageInput" type="text" placeholder="Type your message..." onkeypress="handleKeyPress(event)">
+            <button onclick="sendMessage()">Send</button>
+        </div>
+    </div>
+
+    <script>
+        const chatLog = document.getElementById('chatLog');
+        const socket = new WebSocket('ws://127.0.0.1:8000/ws/chat/');
+
+        socket.onopen = function() {
+            addStatusMessage("✅ Connected to WebSocket");
+        };
+
+        socket.onmessage = function(e) {
+            const data = JSON.parse(e.data);
+            addMessage("server", data.message);
+        };
+
+        socket.onclose = function() {
+            addStatusMessage("❌ Connection closed");
+        };
+
+        function addMessage(sender, text) {
+            const messageDiv = document.createElement("div");
+            messageDiv.classList.add("message", sender);
+            messageDiv.textContent = text;
+            chatLog.appendChild(messageDiv);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function addStatusMessage(text) {
+            const statusDiv = document.createElement("div");
+            statusDiv.classList.add("status");
+            statusDiv.textContent = text;
+            chatLog.appendChild(statusDiv);
+            chatLog.scrollTop = chatLog.scrollHeight;
+        }
+
+        function sendMessage() {
+            const messageInput = document.getElementById('messageInput');
+            const message = messageInput.value.trim();
+            if (message) {
+                addMessage("user", message);
+                socket.send(JSON.stringify({ 'message': message }));
+                messageInput.value = '';
+            }
+        }
+
+        function handleKeyPress(event) {
+            if (event.key === "Enter") {
+                sendMessage();
+            }
+        }
+    </script>
+</body>
+</html>
