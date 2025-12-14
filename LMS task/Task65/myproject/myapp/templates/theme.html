@@ -1,0 +1,16 @@
+<h3>Theme Preference (Cookie)</h3>
+
+<form method="post">
+    {% csrf_token %}
+    <select name="theme">
+        <option value="light">Light</option>
+        <option value="dark">Dark</option>
+    </select>
+    <button type="submit">Save</button>
+</form>
+
+{% if theme %}
+<p>Selected theme: {{ theme }}</p>
+{% endif %}
+
+<a href="{% url 'clear_theme' %}">Clear Cookie</a>

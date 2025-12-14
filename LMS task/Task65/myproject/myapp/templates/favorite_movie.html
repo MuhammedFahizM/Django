@@ -1,0 +1,13 @@
+<h3>Favorite Movie (Session)</h3>
+
+<form method="post">
+    {% csrf_token %}
+    <input type="text" name="movie" placeholder="Enter movie">
+    <button type="submit">Save</button>
+</form>
+
+{% if movie %}
+<p>Your favorite movie: {{ movie }}</p>
+{% endif %}
+
+<a href="{% url 'clear_movie' %}">Clear Session</a>

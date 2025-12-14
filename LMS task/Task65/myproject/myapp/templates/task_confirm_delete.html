@@ -1,0 +1,9 @@
+{% extends "base2.html" %}
+{% block content %}
+<h3>Delete Task</h3>
+<p>Are you sure you want to delete "{{ object }}"?</p>
+<form method="post">
+  {% csrf_token %}
+  <button class="btn btn-danger">Confirm</button>
+</form>
+{% endblock %}
